@@ -162,21 +162,6 @@
 .disco i:nth-child(3) { background: linear-gradient(rgba(255, 215, 120, 0.9), transparent 80%); animation-duration: 7.3s; animation-delay: -4s; }
 .disco i:nth-child(4) { background: linear-gradient(rgba(170, 120, 255, 0.9), transparent 80%); animation-duration: 5.8s; animation-delay: -1s; }
 .scene--sangeet.is-live .disco i { animation-play-state: running; }
-.marquee {
-  position: absolute; z-index: 1; left: 0; right: 0;
-  bottom: calc(env(safe-area-inset-bottom) + 12px);
-  overflow: hidden;
-  -webkit-mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-          mask: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-}
-.marquee__track { display: flex; width: max-content; animation: marquee 26s linear infinite; }
-.marquee__track span {
-  white-space: pre;
-  font-family: var(--font-head); font-size: 0.78rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gold-light);
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.9), 0 1px 2px rgba(0, 0, 0, 0.9);
-}
-
 /* ═════════════ 10. Wedding ═════════════ */
 /* The mandap glow brightens the teal sky behind the text, so maroon reads cleanly on it. */
 .mandap-glow {
@@ -195,46 +180,94 @@
   animation: spin 90s linear infinite;
 }
 .fireworks { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
-.wed-names { position: relative; width: min(100%, 290px); aspect-ratio: 300 / 144; margin: 0 auto 8px; }
-.varmala { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.varmala__thread { fill: none; stroke: var(--leaf); stroke-width: 2; }
-.varmala__beads circle { stroke: rgba(122, 20, 36, 0.25); stroke-width: 0.6; }
-.wed-names__text {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center; gap: 0.2em;
-  font-family: var(--font-script); font-size: clamp(2rem, 9.5vw, 2.5rem); line-height: 1;
+.ecard--wedding .ecard__title { line-height: 1.05; }
+.wed-date {
+  display: inline-block; white-space: nowrap; /* "2nd December" always stays on one line */
+  font-family: var(--font-script); font-weight: 400;
+  font-size: clamp(3.1rem, 14vw, 4rem);
   color: var(--maroon);
 }
-.wed-names__text em { font-style: normal; font-size: 0.8em; color: var(--gold-deep); }
+.ecard--wedding .ecard__divider { width: 190px; margin: 6px auto 10px; }
+.wed-programme { display: grid; gap: 0.55em; }
+.wed-prog__name {
+  font-family: var(--font-body); font-weight: 700;
+  font-size: clamp(1.4rem, 6.4vw, 1.75rem); line-height: 1.1;
+  letter-spacing: 0.02em; text-transform: uppercase;
+  color: var(--maroon);
+}
+.wed-prog__time {
+  font-family: var(--font-body); font-weight: 600;
+  font-size: clamp(1.25rem, 5.6vw, 1.5rem); line-height: 1.2;
+  color: #3b1a10;
+}
+.ecard--wedding .meta--venue {
+  white-space: nowrap; /* "Oswal Panchayat, Chhapar" stays on one line */
+  font-family: var(--font-body); letter-spacing: 0.01em;
+  font-size: clamp(1.35rem, 6vw, 1.7rem); font-weight: 600; line-height: 1.2;
+  color: var(--maroon);
+}
+.ecard--wedding .meta__label {
+  display: block;
+  font-family: var(--font-body); font-weight: 700;
+  font-size: clamp(0.85rem, 3.8vw, 1rem); letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
 /* ═════════════ Finale ═════════════ */
+/* Deep maroon with gold and ivory lettering; layout after the reference card */
 .finale {
   position: relative;
   min-height: 100svh;
   display: grid; place-items: center;
   padding: 56px var(--gutter) calc(env(safe-area-inset-bottom) + 56px);
-  color: var(--ivory); text-align: center;
+  text-align: center;
+  color: var(--ivory);
   background:
-    radial-gradient(ellipse 80% 60% at 50% 38%, #8e1e2e, var(--maroon-deep) 72%),
+    radial-gradient(ellipse 80% 60% at 50% 40%, #8e1e2e, var(--maroon-deep) 72%),
     var(--maroon-deep);
 }
-.finale__inner { display: grid; justify-items: center; }
-.finale__ring { grid-area: 1 / 1; width: min(66vw, 250px); height: auto; overflow: visible; }
-.finale__ring .ring-outer { fill: none; stroke: var(--gold); stroke-width: 1.4; }
-.finale__ring .ring-inner { fill: rgba(241, 213, 138, 0.05); stroke: var(--gold-light); stroke-width: 0.8; stroke-dasharray: 2 4; }
-.finale__ring .ring-petals ellipse { fill: var(--rose); opacity: 0.75; }
-.finale__monogram {
-  grid-area: 1 / 1; align-self: center;
-  /* sized to sit inside the inner ring; side padding keeps the script swashes from being clipped */
-  font-family: var(--font-script); font-size: clamp(2.5rem, 11.5vw, 3.2rem); line-height: 1.2;
-  padding: 0.1em 0.35em;
+.finale__inner { display: grid; justify-items: center; max-width: 360px; }
+.finale__names {
+  margin: 0 0 4px;
+  padding: 0 0.2em; /* room for the script swashes under the shimmer */
+  font-family: var(--font-script); font-weight: 400;
+  font-size: clamp(2.9rem, 13.5vw, 3.7rem); line-height: 1.12;
   background: linear-gradient(100deg, var(--gold) 0%, var(--gold-light) 35%, #fffbe8 50%, var(--gold-light) 65%, var(--gold) 100%);
   background-size: 250% 100%;
   -webkit-background-clip: text; background-clip: text; color: transparent;
   animation: shimmer 5s linear infinite;
 }
-.finale__title { margin: 28px 0 6px; font-family: var(--font-head); font-weight: 600; font-size: clamp(1.1rem, 5vw, 1.35rem); letter-spacing: 0.08em; line-height: 1.35; color: var(--ivory); }
-.finale__names { font-family: var(--font-script); font-size: 2.1rem; color: var(--gold-light); }
-.finale__hashtag { margin-top: 4px; font-family: var(--font-head); font-size: 0.9rem; letter-spacing: 0.12em; color: var(--gold); }
+.finale__hashtag {
+  font-family: 'Playfair Display', var(--font-body); font-weight: 700;
+  font-size: clamp(1.9rem, 9vw, 2.5rem); line-height: 1.15; letter-spacing: 0.005em;
+  color: var(--gold-light);
+}
+.finale__divider { display: block; width: 170px; height: 12px; margin: 16px auto 18px; fill: none; stroke: var(--gold); stroke-width: 1.2; }
+.finale__divider .gem { fill: var(--gold); stroke: none; }
+.finale__title {
+  margin: 0;
+  font-family: var(--font-body); font-weight: 600;
+  font-size: clamp(1.25rem, 5.6vw, 1.5rem); line-height: 1.35;
+  color: var(--ivory);
+}
+.finale__regards { margin-top: 22px; }
+.finale__regards-label {
+  font-family: var(--font-script); font-weight: 400;
+  font-size: clamp(2.2rem, 10vw, 2.8rem); line-height: 1.1;
+  color: var(--gold-light);
+}
+.finale__regards-from {
+  margin-top: 14px;
+  font-family: 'Playfair Display', var(--font-body); font-weight: 700;
+  font-size: clamp(1.25rem, 5.8vw, 1.55rem); letter-spacing: 0.04em; text-transform: uppercase; line-height: 1.2;
+  color: var(--ivory);
+}
+.finale__regards-family {
+  margin-top: 6px;
+  font-family: 'Playfair Display', var(--font-body); font-weight: 700;
+  font-size: clamp(0.85rem, 3.8vw, 0.98rem); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold);
+}
 
 /* ───────────── Toast ───────────── */
 .toast {
@@ -257,12 +290,10 @@
 @keyframes pulse-soft { 0%, 100% { transform: scale(0.9); opacity: 0.7; } 50% { transform: scale(1.12); opacity: 1; } }
 @keyframes beat { 0% { transform: scale(1.06); text-shadow: 0 0 26px rgba(241, 213, 138, 0.8); } 100% { transform: scale(1); } }
 @keyframes sweep { from { transform: rotate(-38deg); } to { transform: rotate(38deg); } }
-@keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 /* ───────────── Reduced motion ───────────── */
 @media (prefers-reduced-motion: reduce) {
-  .disco i, .marquee__track, .mandap-rays, .finale__monogram,
+  .disco i, .mandap-rays, .finale__names,
   .scene--sangeet.is-live .ecard__title { animation: none !important; }
-  .marquee__track { transform: none; }
 }

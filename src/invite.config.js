@@ -10,13 +10,13 @@ export const invite = {
   bride: {
     name: "Neha",
     grandparentsLabel: "Granddaughter of",
-    grandparents: "Lt. Shri Nathmal Ji Soni\nand Bhauri Devi Soni",
+    grandparents: "Late Shri Nathmal Ji Soni\nand Bhauri Devi Soni",
     parents: "D/o Vikram Ji Soni\nand Suman Devi Soni",
   },
   groom: {
     name: "Kartik",
     grandparentsLabel: "Grandson of",
-    grandparents: "Lt. Shri Kishan Lal Ji Soni\nand Sampat Devi Soni",
+    grandparents: "Late Shri Kishan Lal Ji Soni\nand Sampat Devi Soni",
     parents: "S/o Suresh Ji Soni\nand Chanda Devi Soni",
   },
   // Which name is shown first everywhere. The artwork reads "Kartik & Neha".
@@ -25,9 +25,9 @@ export const invite = {
   // Gatefold "two doors + wax seal" intro before the Ganesh card.
   // To use your own door art, add public/assets/door-left.webp and door-right.webp.
   showGatefold: true,
-  hashtag: "#dillNEhaaKAha",
+  hashtag: "#dillNehaaKAha",
 
-  weddingDate: "2026-12-02T[HH:MM]:00+05:30", // countdown target: 2 December 2026, IST
+  weddingDate: "2026-12-02T17:00:00+05:30", // countdown target: Baraat Swagat, 2 December 2026, 5 PM IST
 
   familyMessage:
     "With the blessings of Lord Ganesha, we joyfully invite you to celebrate the wedding of our children",
@@ -55,21 +55,26 @@ export const invite = {
 
   // Sections are shown sorted by date + time automatically (order here doesn't matter).
   // An event without a date yet is placed just before the next dated event listed after it.
-  // Dates: use YYYY-MM-DD. Times: "7:30 PM", "1:15 P.M. Onwards" or "19:30" (IST).
+  // Dates: use YYYY-MM-DD. Times: "7 PM Onwards", "10 AM" or "19:00" (IST).
   // Leave `venue` empty to hide the venue line for that event.
   // Leave `mapsUrl` empty to use the main venue's map link.
   // dressCode / swatches are kept for later but not shown right now.
   events: [
-    { id: "bhajan",   title: "Bhajan Sandhya", date: "2026-11-30", time: "5:00 P.M. Onwards", venue: "", mapsUrl: "", dressCode: "[e.g. Pastels / white]", bg: "bhajan-sandhya-invite",
+    { id: "bhajan",   title: "Bhajan Sandhya", date: "2026-11-30", time: "5 PM Onwards", venue: "", mapsUrl: "", dressCode: "[e.g. Pastels / white]", bg: "bhajan-sandhya-invite",
       swatches: ["#fffaf0", "#f6d7e0", "#f3e3b5"] },
-    { id: "mehendi",  title: "Mehfil-e-Mehendi", date: "2026-11-30", time: "1:15 P.M. Onwards", venue: "", mapsUrl: "", dressCode: "[Greens & yellows]",    bg: "mehendi",
+    { id: "mehendi",  title: "Mehfil-e-Mehendi", date: "2026-11-30", time: "1 PM Onwards", venue: "", mapsUrl: "", dressCode: "[Greens & yellows]",    bg: "mehendi",
       swatches: ["#4f7a3a", "#9cc24a", "#f2c230"] },
-    { id: "carnival", title: "Carnival Fiesta", date: "2026-12-01", time: "10:15 A.M. Onwards", venue: "", mapsUrl: "", dressCode: "[Fun & colourful]",     bg: "carnival",
+    { id: "carnival", title: "Carnival Fiesta", date: "2026-12-01", time: "10 AM Onwards", venue: "", mapsUrl: "", dressCode: "[Fun & colourful]",     bg: "carnival",
       swatches: ["#e8457c", "#35b6d6", "#f7d23e", "#8a5cf0"] },
-    { id: "sangeet",  title: "Sangeet Night", date: "2026-12-01", time: "7:15 P.M. Onwards", venue: "", mapsUrl: "", dressCode: "[Glam / black & gold]", bg: "sangeet",
+    { id: "sangeet",  title: "Sangeet Night", date: "2026-12-01", time: "7 PM Onwards", venue: "", mapsUrl: "", dressCode: "[Glam / black & gold]", bg: "sangeet",
       swatches: ["#141414", "#c9973b", "#f1d58a"] },
-    { id: "nanihal",  title: "Nanihal Ki Mithaas", date: "2026-12-02", time: "10:15 A.M.", venue: "", mapsUrl: "", dressCode: "", bg: "nanihal-ki-mithaas" },
-    { id: "wedding",  title: "Wedding",        date: "2026-12-02", time: "[TIME]", venue: "Oswal Panchayat, Chhapar", mapsUrl: "", dressCode: "[Traditional]",   bg: "wedding",
+    { id: "nanihal",  title: "Nanihal Ki Mithaas", date: "2026-12-02", time: "10 AM", venue: "", mapsUrl: "", dressCode: "", bg: "nanihal-ki-mithaas" },
+    // The Wedding screen shows the date as its title, then this programme, then the venue.
+    { id: "wedding",  title: "Wedding",        date: "2026-12-02", time: "5 PM", venue: "Oswal Panchayat, Chhapar",
+      programme: [
+        { name: "Baraat Swagat", time: "5 PM" },
+        { name: "Reception", time: "8 PM" },
+      ], mapsUrl: "", dressCode: "[Traditional]",   bg: "wedding",
       swatches: ["#7a1424", "#c9973b", "#f7eedd"] },
   ],
 
@@ -78,8 +83,10 @@ export const invite = {
     countdownTitle: "Counting down to forever",
     countdownToday: "Today's the day! 🎉",
     countdownAfter: "Thank you for celebrating with us ❤️",
-    sangeetMarquee: "Dance floor opens at {time}",
-    finaleMessage: "We can't wait to celebrate with you",
+    finaleMessage: "We Look Forward To Celebrating This Special Journey With You",
+    regardsLabel: "Warmest Regards",
+    regardsFrom: "Sahdevda & Narnoli",
+    regardsFamily: "Family",
   },
 };
 

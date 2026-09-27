@@ -24,7 +24,7 @@ const ART = {
     alt: 'Night-time sangeet stage: woven lanterns and fairy lights over a dark velvet backdrop, the couple dancing on a chequered floor in front of pastel fan panels.' },
   'nanihal-ki-mithaas': { w: 720, h: 1280, zone: '30 20 94 51',
     alt: 'Sunset by the sea under hanging brass bells and pink flower strings: the bride in an orange lehenga lovingly feeds sweets to the groom, with a smiling family elder in a green jacket beside them.' },
-  wedding: { w: 720, h: 1280, zone: '16 12 84 59',
+  wedding: { w: 720, h: 1280, zone: '17 15 83 56',
     alt: 'A carved palace arch strung with fairy lights over a glowing evening sky; the groom in an ivory sherwani and red safa stands beside the bride in a red lehenga, with a peacock, palms and diyas around them.' },
 };
 

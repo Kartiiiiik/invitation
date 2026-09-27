@@ -1,20 +1,15 @@
 // Sangeet: disco-light sweep, beat pulse on the text, a dhol beat playing in the background
-// while the section is on screen, and a "dance floor opens" marquee.
+// while the section is on screen.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { invite } from '../invite.config.js';
 import { $, $$, reducedMotion } from '../lib/utils.js';
 import { startDhol, stopDhol } from '../lib/audio.js';
-import { formatDate } from '../lib/calendar.js';
 
 export function initSangeet(section, ev) {
   const card = $('.ecard', section);
   const fx = $('.scene__fx', section);
   fx.innerHTML = '<div class="disco"><i></i><i></i><i></i><i></i></div>';
-
-  const marqueeText = `${invite.copy.sangeetMarquee.replace('{time}', ev.time)}  ✦  ${ev.title} · ${formatDate(ev.date)}  ✦  `;
-  section.insertAdjacentHTML('beforeend', `<div class="marquee" aria-hidden="true"><div class="marquee__track"><span></span><span></span></div></div>`);
-  $$('.marquee__track span', section).forEach((s) => (s.textContent = marqueeText.repeat(3)));
 
   // Lights, beat pulse and the dhol run only while the Sangeet is on screen
   ScrollTrigger.create({

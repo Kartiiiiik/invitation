@@ -22,9 +22,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- Fonts load without blocking the first paint (text shows in a fallback font until ready) -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" /></noscript>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Playfair+Display:wght@700&family=Tiro+Devanagari+Hindi&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Playfair+Display:wght@700&family=Tiro+Devanagari+Hindi&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Playfair+Display:wght@700&family=Tiro+Devanagari+Hindi&display=swap" /></noscript>
     <!-- The first screen is the gatefold (pure CSS/SVG), so these load behind it -->
     <link rel="preload" as="image" imagesrcset="/assets/img/ganesh-opening-480.webp 480w, /assets/img/ganesh-opening.webp 800w" imagesizes="(max-width: 480px) 100vw, 480px" fetchpriority="high" />
     <link rel="preload" as="image" imagesrcset="/assets/img/first-invite-background-480.webp 480w, /assets/img/first-invite-background.webp 800w" imagesizes="(max-width: 480px) 100vw, 480px" />
@@ -180,15 +180,17 @@
       <!-- ═════════ FINALE ═════════ -->
       <section class="finale" id="finale" data-bg="wedding" aria-labelledby="finale-title">
         <div class="finale__inner">
-          <svg class="finale__ring" viewBox="-100 -100 200 200" aria-hidden="true">
-            <circle r="92" class="ring-outer" />
-            <circle r="80" class="ring-inner" />
-            <g class="ring-petals"></g>
-          </svg>
-          <p class="finale__monogram" aria-hidden="true" data-bind="initials"></p>
-          <h2 class="finale__title" id="finale-title" data-copy="finaleMessage"></h2>
-          <p class="finale__names" data-couple></p>
+          <h2 class="finale__names" id="finale-title" data-couple></h2>
           <p class="finale__hashtag" data-bind="hashtag"></p>
+          <svg class="finale__divider" viewBox="0 0 220 16" aria-hidden="true">
+            <path d="M4 8H100M120 8H216" /><path d="M110 3.5l4.5 4.5-4.5 4.5-4.5-4.5z" class="gem" />
+          </svg>
+          <p class="finale__title" data-copy="finaleMessage"></p>
+          <div class="finale__regards">
+            <p class="finale__regards-label" data-copy="regardsLabel"></p>
+            <p class="finale__regards-from" data-copy="regardsFrom"></p>
+            <p class="finale__regards-family" data-copy="regardsFamily"></p>
+          </div>
         </div>
       </section>
     </main>

@@ -52,6 +52,25 @@ export function mapCoverPoint(img, xPct, yPct) {
  * Places `.zone[data-zone="x1 y1 x2 y2"]` (image %, from ASSET_NOTES.md) over the
  * artwork's empty area, then shrinks its `.zone__inner` to fit if the content is taller.
  */
+// Lines that never wrap; each shrinks its own font size if it's wider than its area.
+const FIT_NOWRAP = '.meta, .wed-date';
+
+// Measures text with the element's real font (via canvas), so the result is stable and
+// doesn't depend on layout (which avoids resize-observer feedback loops).
+const measureCtx = document.createElement('canvas').getContext('2d');
+function fitLine(el, maxW) {
+  el.style.fontSize = '';
+  const cs = getComputedStyle(el);
+  const base = parseFloat(cs.fontSize);
+  if (!measureCtx || !base || !maxW) return;
+  measureCtx.font = `${cs.fontStyle} ${cs.fontWeight} ${base}px ${cs.fontFamily}`;
+  const raw = (el.querySelector('.meta__v') || el).textContent; // visible value only, not the screen-reader prefix
+  const text = cs.textTransform === 'uppercase' ? raw.toUpperCase() : raw;
+  const spacing = (parseFloat(cs.letterSpacing) || 0) * text.length;
+  const w = measureCtx.measureText(text.trim()).width + spacing + 6;
+  if (w > maxW) el.style.fontSize = `${Math.floor(base * (maxW / w) * 10) / 10}px`;
+}
+
 export function placeZones(root) {
   const img = root.querySelector('img.art');
   const zones = [...root.querySelectorAll('.zone[data-zone]')];
@@ -78,16 +97,28 @@ export function placeZones(root) {
   const fit = (zone) => {
     const inner = zone.querySelector('.zone__inner');
     if (!inner) return;
-    // Shrink if too tall, or if a no-wrap line (date/time) is wider than the zone
-    const wide = Math.max(inner.scrollWidth, ...[...inner.querySelectorAll('.meta')].map((m) => m.scrollWidth));
-    const k = Math.min(1, zone.clientHeight / inner.offsetHeight, zone.clientWidth / wide);
+    // 1. One-line texts that are too wide get a smaller font size (so they never spill
+    //    sideways, which would push the block off-centre).
+    inner.querySelectorAll(FIT_NOWRAP).forEach((el) => fitLine(el, zone.clientWidth));
+    // 2. If the whole block is still too tall, scale it down around its centre.
+    const k = Math.min(1, zone.clientHeight / inner.offsetHeight);
     inner.style.transform = k < 0.995 ? `scale(${k.toFixed(3)})` : '';
   };
   if (img.complete) place();
   else img.addEventListener('load', place, { once: true });
   const ro = new ResizeObserver(place);
   ro.observe(root);
-  zones.forEach((z) => z.querySelector('.zone__inner') && ro.observe(z.querySelector('.zone__inner')));
+  zones.forEach((z) => {
+    const inner = z.querySelector('.zone__inner');
+    if (!inner) return;
+    ro.observe(inner);
+    // One-line texts can grow wider without changing the block's size (e.g. when the script
+    // font finishes loading), so watch them too.
+    inner.querySelectorAll(FIT_NOWRAP).forEach((el) => ro.observe(el));
+  });
+  // Re-measure once the web fonts arrive (they load after first paint)
+  document.fonts?.ready.then(place);
+  document.fonts?.addEventListener?.('loadingdone', place);
 }
 
 /** Positions every .hotspot[data-art-x][data-art-y] inside `root` onto its artwork. */
