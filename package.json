@@ -1,0 +1,20 @@
+{
+  "name": "wedding-invite",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host",
+    "images": "node scripts/optimize-images.mjs"
+  },
+  "dependencies": {
+    "canvas-confetti": "^1.9.4",
+    "gsap": "^3.15.0"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "vite": "^8.3.1"
+  }
+}

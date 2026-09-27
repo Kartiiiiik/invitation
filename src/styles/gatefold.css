@@ -1,0 +1,132 @@
+/* ═════════════ Gatefold intro: two card doors + gold wax seal ═════════════ */
+.gf {
+  --seal: min(38vw, 200px);
+  --paper: #f9e4c8;
+  --paper-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .27 0 0 0 0 .12 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  position: fixed; top: 0; left: 50%; z-index: 80;
+  width: var(--col); height: 100svh;
+  transform: translateX(-50%);
+  perspective: 1200px;
+  overflow: hidden;
+}
+
+.gf__light {
+  position: absolute; left: var(--seam); top: 50%;
+  width: 180%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(255, 236, 170, 0.95) 0%, rgba(255, 196, 100, 0.55) 22%, rgba(255, 170, 70, 0.15) 42%, transparent 60%);
+  mix-blend-mode: screen;
+  opacity: 0; pointer-events: none;
+}
+
+/* Doors */
+.gf__door {
+  position: absolute; top: 0; bottom: 0;
+  background-color: var(--paper);
+  background-size: cover; background-position: center;
+  will-change: transform;
+}
+.gf__door--left {
+  left: 0; width: calc(var(--seam));
+  z-index: 2;
+  transform-origin: left center;
+  background-image: var(--paper-noise), linear-gradient(90deg, #fbead3 0%, #f8e2c5 80%, #efd2ae 100%);
+  box-shadow: 8px 0 18px -6px rgba(110, 60, 20, 0.4), 1px 0 0 rgba(150, 100, 50, 0.25);
+}
+.gf__door--right {
+  left: 46%; right: 0;
+  z-index: 1;
+  transform-origin: right center;
+  background-image: var(--paper-noise), linear-gradient(90deg, #e9caa3 0%, #f6dfc2 10%, #fbe9d2 100%);
+}
+.gf__door.has-art { background-image: none; }
+.gf__door.has-art .gf__vines { display: none; }
+.gf__door::before { /* fine gold rule inset from the edge, like a printed card */
+  content: ''; position: absolute; inset: 14px; pointer-events: none;
+  border: 1px solid rgba(201, 151, 59, 0.45);
+}
+.gf__door--left::before { right: 10px; }
+.gf__door--right::before { left: calc(var(--seam-r) + 10px); }
+.gf__shade {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg, rgba(40, 18, 6, 0.9), rgba(40, 18, 6, 0.6));
+}
+
+.gf__vines { position: absolute; overflow: visible; pointer-events: none; }
+.gf__vines--L { left: 0; top: 0; width: 88%; height: auto; }
+.gf__vines--R { right: 0; bottom: 0; width: 86%; height: auto; }
+
+/* Seal: each half lives on its own door; both halves share the same centre on the seam */
+.gf__seal {
+  position: absolute; top: 50%;
+  width: var(--seal); height: var(--seal);
+  margin: calc(var(--seal) / -2) 0 0 calc(var(--seal) / -2);
+  z-index: 3;
+}
+.gf__seal--L { left: 100%; clip-path: inset(-25% 50% -25% -25%); }
+.gf__seal--R { left: var(--seam-r); clip-path: inset(-25% -25% -25% 50%); }
+.gf__seal-art {
+  position: relative; width: 100%; height: 100%;
+  filter: drop-shadow(0 7px 9px rgba(90, 50, 10, 0.38)) drop-shadow(0 1px 1px rgba(90, 50, 10, 0.4));
+  animation: gf-pulse 3s ease-in-out infinite;
+}
+.gf__seal-art svg { width: 100%; height: 100%; overflow: visible; }
+.gf__shine { animation: gf-shine 3s ease-in-out infinite; }
+.gf__mono {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  font-family: var(--font-head); font-weight: 700;
+  font-size: calc(var(--seal) * 0.2);
+  letter-spacing: 0.02em;
+  color: #9a6a22;
+  /* pressed into the wax: highlight below-right, shadow above-left */
+  text-shadow: 1px 1px 0 rgba(255, 238, 185, 0.8), -1px -1px 1px rgba(70, 42, 8, 0.65);
+}
+.gf.is-opening .gf__seal-art, .gf.is-opening .gf__shine { animation: none; }
+
+.gf__crack {
+  position: absolute; z-index: 4; left: var(--seam); top: 50%;
+  width: 2px; height: var(--seal);
+  margin: calc(var(--seal) / -2) 0 0 -1px;
+  background: linear-gradient(transparent, #fff8dc 20%, #fff 50%, #fff8dc 80%, transparent);
+  box-shadow: 0 0 10px 2px rgba(255, 240, 190, 0.9);
+  transform: scaleY(0); opacity: 0;
+  pointer-events: none;
+}
+
+.gf__dear, .gf__hint {
+  position: absolute; z-index: 4; left: var(--seam);
+  transform: translateX(-50%);
+  margin: 0; white-space: nowrap; text-align: center;
+  pointer-events: none;
+}
+.gf__dear {
+  bottom: calc(50% + var(--seal) / 2 + 22px);
+  font-family: var(--font-body); font-style: italic; font-weight: 500;
+  font-size: clamp(1.2rem, 5.4vw, 1.45rem);
+  color: var(--henna);
+  text-shadow: 0 1px 0 rgba(255, 250, 240, 0.8);
+}
+.gf__hint {
+  top: calc(50% + var(--seal) / 2 + 22px);
+  font-family: var(--font-head); font-weight: 600;
+  font-size: 0.7rem; letter-spacing: 0.42em; text-transform: uppercase;
+  color: var(--gold-deep);
+  animation: gf-breathe 2.4s ease-in-out infinite;
+}
+
+/* Big invisible tap target: the seal and a generous area around it */
+.gf__tap {
+  position: absolute; z-index: 5;
+  left: 12%; right: 12%; top: 28%; bottom: 28%;
+  background: none; border: 0; border-radius: 24px;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.gf__tap:focus-visible { outline: 2px dashed var(--gold-deep); outline-offset: -6px; }
+
+@keyframes gf-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes gf-shine { 0% { transform: translateX(0); } 45%, 100% { transform: translateX(330px); } }
+@keyframes gf-breathe { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .gf__seal-art, .gf__shine, .gf__hint { animation: none; }
+}

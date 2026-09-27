@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en" class="is-locked">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#7a1424" />
+    <title>%INVITE_TITLE%</title>
+    <meta name="description" content="%INVITE_DESC%" />
+
+    <!-- Link preview (WhatsApp / iMessage / Facebook) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="%INVITE_TITLE%" />
+    <meta property="og:description" content="%INVITE_DESC%" />
+    <meta property="og:url" content="%INVITE_URL%" />
+    <meta property="og:image" content="%INVITE_OG_IMAGE%" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪔%3C/text%3E%3C/svg%3E" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Fonts load without blocking the first paint (text shows in a fallback font until ready) -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Tiro+Devanagari+Hindi&display=swap" /></noscript>
+    <!-- The first screen is the gatefold (pure CSS/SVG), so these load behind it -->
+    <link rel="preload" as="image" imagesrcset="/assets/img/ganesh-opening-480.webp 480w, /assets/img/ganesh-opening.webp 800w" imagesizes="(max-width: 480px) 100vw, 480px" fetchpriority="high" />
+    <link rel="preload" as="image" imagesrcset="/assets/img/first-invite-background-480.webp 480w, /assets/img/first-invite-background.webp 800w" imagesizes="(max-width: 480px) 100vw, 480px" />
+  </head>
+  <body>
+    <!-- Desktop only: blurred copy of the current background fills the sides -->
+    <div class="backdrop" aria-hidden="true">
+      <div class="backdrop__layer is-active" style="background-image:url(/assets/img/ganesh-opening-blur.webp)"></div>
+      <div class="backdrop__layer"></div>
+    </div>
+
+    <!-- ═════════ 1. OPENING GATE ═════════ -->
+    <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-blessing">
+      <div class="gate__half">
+        <img class="art art--full" src="/assets/img/ganesh-opening.webp" srcset="/assets/img/ganesh-opening-480.webp 480w, /assets/img/ganesh-opening.webp 800w" sizes="(max-width: 480px) 100vw, 480px" width="900" height="1600" fetchpriority="high" decoding="async"
+          alt="Lord Ganesh, seated on a red cushion, painting the couple's monogram KN and the names Kartik and Neha on an easel, beside a lit diya and marigold rangoli." />
+      </div>
+      <div class="gate__vignette" aria-hidden="true"></div>
+      <span class="gate__painted-flame hotspot" data-art-x="10.6" data-art-y="19.2" aria-hidden="true"></span>
+
+      <p class="gate__blessing" id="gate-blessing" lang="hi">
+        <span class="shimmer">॥ श्री गणेशाय नमः ॥</span>
+      </p>
+
+      <div class="gate__bottom">
+        <p class="gate__for">Dear <span data-greeting-name></span></p>
+        <div class="gate__row">
+          <div class="diya" aria-hidden="true"><span class="diya__flame"></span><span class="diya__bowl"></span></div>
+          <button class="btn btn--gold gate__open" id="gateOpen" type="button">
+            <span>Tap to open</span>
+          </button>
+          <p class="gate__swipe" aria-hidden="true" hidden>Swipe up<span>⌃</span></p>
+          <div class="diya" aria-hidden="true"><span class="diya__flame"></span><span class="diya__bowl"></span></div>
+        </div>
+      </div>
+
+      <div class="gate__burst" aria-hidden="true"></div>
+    </div>
+
+    <!-- Floating music toggle (shown after the gate opens) -->
+    <button class="music-toggle" id="musicToggle" type="button" aria-pressed="true" aria-label="Background music" hidden>
+      <span class="music-toggle__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+    </button>
+
+    <canvas class="petals" id="petals" aria-hidden="true"></canvas>
+
+    <main class="column" id="main">
+      <!-- ═════════ 2. THE INVITATION ═════════ -->
+      <section class="scene scene--invite" id="invitation" data-bg="first-invite-background" aria-labelledby="couple-names">
+        <img class="scene__bg art art--full" src="/assets/img/first-invite-background.webp" srcset="/assets/img/first-invite-background-480.webp 480w, /assets/img/first-invite-background.webp 800w" sizes="(max-width: 480px) 100vw, 480px" width="728" height="1280" decoding="async"
+          alt="A carved white marble arch framed by gold floral sprays and pink lotuses." />
+        <div class="zone" data-zone="16 15 84 86">
+         <div class="zone__inner invite">
+          <p class="invite__greeting">Dear <span data-greeting-name></span>,</p>
+          <p class="invite__message" data-bind="familyMessage"></p>
+          <h1 class="invite__names" id="couple-names">
+            <span class="invite__name" data-name="0"></span>
+            <span class="invite__amp" aria-hidden="true">
+              <svg class="invite__bloom" viewBox="-50 -50 100 100" aria-hidden="true">
+                <g class="bloom-petals"></g>
+              </svg>
+              <span class="invite__amp-char">&amp;</span>
+            </span>
+            <span class="sr-only"> and </span>
+            <span class="invite__name" data-name="1"></span>
+          </h1>
+          <div class="invite__families">
+            <div class="family" data-family="0">
+              <p class="family__label"></p>
+              <p class="family__grandparents"></p>
+              <p class="family__parents"></p>
+            </div>
+            <div class="family" data-family="1">
+              <p class="family__label"></p>
+              <p class="family__grandparents"></p>
+              <p class="family__parents"></p>
+            </div>
+          </div>
+         </div>
+        </div>
+        <p class="invite__scroll" aria-hidden="true">Scroll <span>⌄</span></p>
+      </section>
+
+      <!-- ═════════ 3. SCRATCH TO REVEAL THE DATE ═════════ -->
+      <section class="scene scene--date" id="date" data-bg="hands" aria-labelledby="date-title">
+        <img class="scene__bg art kenburns" src="/assets/img/hands.webp" loading="lazy" decoding="async" width="1280" height="853"
+          alt="Close-up of the couple's clasped hands, her gold ring catching the light, with a softly blurred palace behind." />
+        <div class="scene__shade" aria-hidden="true"></div>
+        <div class="scene__content scratch">
+          <h2 class="scratch__title" id="date-title">
+            Two hearts, one date.
+            <span>Scratch to find out ✨</span>
+          </h2>
+
+          <p class="sr-only">The wedding date is Wednesday, 2 December 2026.</p>
+
+          <div class="scratch__cards" aria-hidden="true">
+            <div class="scard" data-card="day">
+              <div class="scard__face"><span class="scard__value">02</span></div>
+              <canvas class="scard__foil"></canvas>
+              <span class="scard__label">Day</span>
+            </div>
+            <div class="scard" data-card="month">
+              <div class="scard__face"><span class="scard__value scard__value--word">December</span></div>
+              <canvas class="scard__foil"></canvas>
+              <span class="scard__label">Month</span>
+            </div>
+            <div class="scard" data-card="year">
+              <div class="scard__face"><span class="scard__value">2026</span></div>
+              <canvas class="scard__foil"></canvas>
+              <span class="scard__label">Year</span>
+            </div>
+          </div>
+
+          <p class="scratch__save" aria-hidden="true">Save the Date</p>
+        </div>
+      </section>
+
+      <!-- ═════════ 4. COUNTDOWN BAND ═════════ -->
+      <section class="band countdown" id="countdown" data-bg="hands" aria-labelledby="countdown-title">
+        <p class="countdown__eyebrow">2 · December · 2026</p>
+        <h2 class="countdown__title" id="countdown-title" data-copy="countdownTitle"></h2>
+        <div class="countdown__grid" role="timer" aria-live="off">
+          <div class="flip-unit" data-unit="days"><div class="roll"><span class="roll__v">00</span></div><span>Days</span></div>
+          <div class="flip-unit" data-unit="hours"><div class="roll"><span class="roll__v">00</span></div><span>Hours</span></div>
+          <div class="flip-unit" data-unit="minutes"><div class="roll"><span class="roll__v">00</span></div><span>Minutes</span></div>
+          <div class="flip-unit" data-unit="seconds"><div class="roll"><span class="roll__v">00</span></div><span>Seconds</span></div>
+        </div>
+        <p class="countdown__done" hidden></p>
+        <p class="sr-only countdown__sr"></p>
+      </section>
+
+      <!-- ═════════ 5. VENUE ═════════ -->
+      <section class="scene scene--venue" id="venue" data-bg="location" aria-label="From Nepal to Rajasthan">
+        <img class="scene__bg art art--full" src="/assets/img/location.webp" srcset="/assets/img/location-480.webp 480w, /assets/img/location.webp 800w" sizes="(max-width: 480px) 100vw, 480px" loading="lazy" decoding="async" width="959" height="1600"
+          alt="Watercolour map card: a flight path runs from a Himalayan stupa in Nepal down to a desert fort with a camel in Rajasthan, under the hashtag dill NE haa KA ha." />
+        <svg class="venue__pin hotspot hotspot--tip" data-art-x="53" data-art-y="74" viewBox="0 0 40 52" aria-hidden="true">
+          <defs>
+            <linearGradient id="pinGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#e2475a" /><stop offset="1" stop-color="#7a1424" />
+            </linearGradient>
+          </defs>
+          <path d="M20 51C20 51 3 31 3 19A17 17 0 0 1 37 19C37 31 20 51 20 51Z" fill="url(#pinGrad)" stroke="#fff4dc" stroke-width="2" />
+          <circle cx="20" cy="19" r="6.5" fill="#fff4dc" />
+          <path d="M20 16.5c-1-1.6-3.6-1.2-3.6.9 0 1.7 3.6 3.9 3.6 3.9s3.6-2.2 3.6-3.9c0-2.1-2.6-2.5-3.6-.9z" fill="#c8242f" />
+        </svg>
+        <span class="venue__ripple hotspot" data-art-x="53" data-art-y="74" aria-hidden="true"></span>
+      </section>
+
+      <!-- ═════════ 6–10. EVENTS (rendered from invite.config.js) ═════════ -->
+      <div id="events"></div>
+
+      <!-- ═════════ FINALE ═════════ -->
+      <section class="finale" id="finale" data-bg="wedding" aria-labelledby="finale-title">
+        <div class="finale__inner">
+          <svg class="finale__ring" viewBox="-100 -100 200 200" aria-hidden="true">
+            <circle r="92" class="ring-outer" />
+            <circle r="80" class="ring-inner" />
+            <g class="ring-petals"></g>
+          </svg>
+          <p class="finale__monogram" aria-hidden="true" data-bind="initials"></p>
+          <h2 class="finale__title" id="finale-title" data-copy="finaleMessage"></h2>
+          <p class="finale__names" data-couple></p>
+          <p class="finale__hashtag" data-bind="hashtag"></p>
+        </div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
