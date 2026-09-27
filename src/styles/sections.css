@@ -200,18 +200,6 @@
   font-size: clamp(1.25rem, 5.6vw, 1.5rem); line-height: 1.2;
   color: #3b1a10;
 }
-.ecard--wedding .meta--venue {
-  white-space: nowrap; /* "Oswal Panchayat, Chhapar" stays on one line */
-  font-family: var(--font-body); letter-spacing: 0.01em;
-  font-size: clamp(1.35rem, 6vw, 1.7rem); font-weight: 600; line-height: 1.2;
-  color: var(--maroon);
-}
-.ecard--wedding .meta__label {
-  display: block;
-  font-family: var(--font-body); font-weight: 700;
-  font-size: clamp(0.85rem, 3.8vw, 1rem); letter-spacing: 0.06em; text-transform: uppercase;
-  color: var(--gold-deep);
-}
 
 /* ═════════════ Finale ═════════════ */
 /* Deep maroon with gold and ivory lettering; layout after the reference card */
@@ -249,6 +237,18 @@
   font-family: var(--font-body); font-weight: 600;
   font-size: clamp(1.25rem, 5.6vw, 1.5rem); line-height: 1.35;
   color: var(--ivory);
+}
+.finale__venue { margin-top: 22px; }
+.finale__venue-label {
+  font-family: var(--font-body); font-weight: 700;
+  font-size: clamp(0.85rem, 3.8vw, 1rem); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold);
+}
+.finale__venue-name {
+  margin-top: 2px;
+  font-family: var(--font-body); font-weight: 600;
+  font-size: clamp(1.3rem, 6vw, 1.6rem); line-height: 1.25;
+  color: var(--gold-light);
 }
 .finale__regards { margin-top: 22px; }
 .finale__regards-label {

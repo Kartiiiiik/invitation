@@ -195,9 +195,10 @@ p { margin: 0; }
 }
 
 .gate__blessing {
-  position: absolute; left: 50%; top: calc(env(safe-area-inset-top) + 3.2svh);
+  position: absolute; left: 50%; top: calc(env(safe-area-inset-top) + 4.5svh);
   transform: translateX(-50%);
-  margin: 0; padding: 0.35em 1.1em 0.25em;
+  margin: 0; padding: 0.2em 1.1em 0.15em;
+  line-height: 1.6;
   white-space: nowrap;
   font-family: var(--font-deva);
   font-size: clamp(1.25rem, 6vw, 1.6rem);
@@ -209,6 +210,8 @@ p { margin: 0; }
   background-size: 250% 100%;
   -webkit-background-clip: text; background-clip: text;
   color: transparent;
+  /* extra headroom: the gold is painted only inside this box, and Devanagari marks rise above the line */
+  display: inline-block; padding: 0.3em 0.1em 0.12em; line-height: 1.5;
   animation: shimmer 4.5s linear infinite;
   filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
 }

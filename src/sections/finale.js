@@ -18,5 +18,5 @@ export function initFinale(petals) {
   if (reducedMotion) return;
   gsap.timeline({ scrollTrigger: { trigger: root, start: 'top 60%', once: true } })
     .from($('.finale__names', root), { scale: 0.9, autoAlpha: 0, duration: 1.6, ease: 'expo.out' })
-    .from($$('.finale__hashtag, .finale__divider, .finale__title, .finale__regards', root), { y: 16, autoAlpha: 0, duration: 1, ease: 'power2.out', stagger: 0.25 }, 0.7);
+    .from($$('.finale__hashtag, .finale__divider, .finale__title, .finale__venue, .finale__regards', root), { y: 16, autoAlpha: 0, duration: 1, ease: 'power2.out', stagger: 0.25 }, 0.7);
 }

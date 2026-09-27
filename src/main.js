@@ -29,6 +29,7 @@ $$('[data-bind]').forEach((el) => {
 });
 $$('[data-copy]').forEach((el) => (el.textContent = invite.copy[el.dataset.copy] ?? ''));
 $$('[data-couple]').forEach((el) => (el.textContent = coupleNames().join(' & ')));
+$$('[data-venue]').forEach((el) => (el.textContent = [invite.venue.name, invite.venue.address].filter(Boolean).join(', ')));
 
 // Blurred copy of each artwork fills any space around the full (uncropped) picture
 $$('[data-bg]').forEach((el) => el.querySelector('.art--full') && el.style.setProperty('--blur', `url(/assets/img/${el.dataset.bg}-blur.webp)`));

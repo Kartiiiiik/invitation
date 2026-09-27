@@ -10,7 +10,7 @@ export const invite = {
   bride: {
     name: "Neha",
     grandparentsLabel: "Granddaughter of",
-    grandparents: "Late Shri Nathmal Ji Soni\nand Bhauri Devi Soni",
+    grandparents: "Late Shri Nathmal Ji Soni\nand Bhanwari Devi Soni",
     parents: "D/o Vikram Ji Soni\nand Suman Devi Soni",
   },
   groom: {
@@ -70,7 +70,7 @@ export const invite = {
       swatches: ["#141414", "#c9973b", "#f1d58a"] },
     { id: "nanihal",  title: "Nanihal Ki Mithaas", date: "2026-12-02", time: "10 AM", venue: "", mapsUrl: "", dressCode: "", bg: "nanihal-ki-mithaas" },
     // The Wedding screen shows the date as its title, then this programme, then the venue.
-    { id: "wedding",  title: "Wedding",        date: "2026-12-02", time: "5 PM", venue: "Oswal Panchayat, Chhapar",
+    { id: "wedding",  title: "Wedding",        date: "2026-12-02", time: "5 PM", venue: "", // venue is shown on the last page
       programme: [
         { name: "Baraat Swagat", time: "5 PM" },
         { name: "Reception", time: "8 PM" },
@@ -84,6 +84,7 @@ export const invite = {
     countdownToday: "Today's the day! 🎉",
     countdownAfter: "Thank you for celebrating with us ❤️",
     finaleMessage: "We Look Forward To Celebrating This Special Journey With You",
+    venueLabel: "Venue", // last page shows this label + venue.name, venue.address
     regardsLabel: "Warmest Regards",
     regardsFrom: "Sahdevda & Narnoli",
     regardsFamily: "Family",

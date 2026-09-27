@@ -1,5 +1,5 @@
 // Wedding: the grandest section. The date is the title ("2 December"), then the programme
-// (Baraat Swagat · 5 PM, Reception · 8 PM), then the venue. Mandap glow + petal shower on entry,
+// (Baraat Swagat · 5 PM, Reception · 8 PM). The venue is on the last page. Mandap glow + petal shower on entry,
 // fireworks in the sky while the section is on screen.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -49,14 +49,8 @@ export function initWedding(section, ev, { petals }) {
     list.append(row);
   });
 
-  // A second divider after the programme, then only the venue (date/time are shown above)
-  slot.append($('.ecard__divider', card).cloneNode(true));
-  $$('.meta--date, .meta--time', card).forEach((el) => el.remove());
-  const venue = $('.meta--venue', card);
-  if (venue) {
-    $('.sr-only', venue)?.remove();
-    venue.insertAdjacentHTML('afterbegin', '<span class="meta__label">Venue</span>');
-  }
+  // Date and time are shown above, and the venue is on the last page
+  $$('.meta', card).forEach((el) => el.remove());
 
   if (reducedMotion) {
     gsap.set(fx, { autoAlpha: 1 });
@@ -70,8 +64,7 @@ export function initWedding(section, ev, { petals }) {
     .call(() => petals?.burst(50), null, 0.4)
     .from($('.wed-date', card), { autoAlpha: 0, y: 16, scale: 0.94, duration: 1.4, ease: 'expo.out' }, 0.5)
     .from($$('.ecard__divider', card), { autoAlpha: 0, scaleX: 0.3, duration: 1, ease: 'power2.out', stagger: 0.5 }, 0.9)
-    .from($$('.wed-prog', card), { autoAlpha: 0, y: 14, duration: 1, ease: 'power2.out', stagger: 0.25 }, 1.1)
-    .from($$('.meta', card), { autoAlpha: 0, y: 12, duration: 1, ease: 'power2.out' }, 1.8);
+    .from($$('.wed-prog', card), { autoAlpha: 0, y: 14, duration: 1, ease: 'power2.out', stagger: 0.25 }, 1.1);
 
   ScrollTrigger.create({ trigger: section, start: 'top 55%', once: true, onEnter: () => tl.play() });
 }
