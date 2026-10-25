@@ -17,6 +17,12 @@ export function vibrate(pattern) {
 }
 
 /** Guest name from ?to=…, stripped to plain text. Always rendered via textContent. */
+/** Event ids to leave out, from ?skip=… (comma-separated, e.g. ?skip=bhajan or ?skip=bhajan,carnival). */
+export function skippedEvents() {
+  const raw = new URLSearchParams(location.search).get('skip') || '';
+  return new Set(raw.toLowerCase().split(',').map((s) => s.trim()).filter(Boolean));
+}
+
 export function guestName(fallback = 'Family & Friends') {
   const raw = new URLSearchParams(location.search).get('to') || '';
   const clean = raw

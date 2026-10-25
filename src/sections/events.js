@@ -2,7 +2,7 @@
 // Builds the shared details (plain typography on the artwork); each event id then gets its own entrance + interaction.
 import { invite } from '../invite.config.js';
 import { formatDate, sortEvents } from '../lib/calendar.js';
-import { $, placeZones, placeHotspots, artSrc, ART_SIZES } from '../lib/utils.js';
+import { $, placeZones, placeHotspots, artSrc, ART_SIZES, skippedEvents } from '../lib/utils.js';
 import { initBhajan } from './bhajan.js';
 import { initMehendi } from './mehendi.js';
 import { initCarnival } from './carnival.js';
@@ -42,7 +42,8 @@ const DIVIDER = `
 
 export function renderEvents({ petals }) {
   const mount = $('#events');
-  sortEvents(invite.events).forEach((ev) => {
+  const skip = skippedEvents();
+  sortEvents(invite.events.filter((ev) => !skip.has(ev.id))).forEach((ev) => {
     const art = ART[ev.bg] || ART.wedding;
     const img = artSrc(ev.bg);
     const section = document.createElement('section');
