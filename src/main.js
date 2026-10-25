@@ -3,7 +3,7 @@ import './styles/sections.css';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { invite, coupleNames } from './invite.config.js';
-import { $, $$, guestName, reducedMotion, lowEnd, slowNet, fadeInArt } from './lib/utils.js';
+import { $, $$, guestName, skippedEvents, reducedMotion, lowEnd, slowNet, fadeInArt } from './lib/utils.js';
 import { preloadSfx, fadeInMusic } from './lib/audio.js';
 import { createPetals } from './lib/petals.js';
 import { initGate } from './sections/gate.js';
@@ -17,6 +17,15 @@ import { initGatefold } from './sections/gatefold.js';
 import { insertDividers } from './sections/dividers.js';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Links that hide an event (?skip=…) also take that event's `whenSkipped` settings, e.g. a different venue
+const skipped = skippedEvents();
+invite.events.forEach((ev) => {
+  if (!skipped.has(ev.id) || !ev.whenSkipped) return;
+  for (const [key, value] of Object.entries(ev.whenSkipped)) {
+    invite[key] = typeof value === 'object' && !Array.isArray(value) ? { ...invite[key], ...value } : value;
+  }
+});
 
 // Personalised greeting from ?to=… (textContent only, so no HTML injection)
 const name = guestName();

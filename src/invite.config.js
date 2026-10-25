@@ -59,9 +59,12 @@ export const invite = {
   // Leave `venue` empty to hide the venue line for that event.
   // Leave `mapsUrl` empty to use the main venue's map link.
   // dressCode / swatches are kept for later but not shown right now.
+  // `whenSkipped` (optional): settings that change when a link hides this event with ?skip=<id>.
   events: [
     { id: "bhajan",   title: "Bhajan Sandhya", date: "2026-11-30", time: "5 PM Onwards", venue: "", mapsUrl: "", dressCode: "[e.g. Pastels / white]", bg: "bhajan-sandhya-invite",
-      swatches: ["#fffaf0", "#f6d7e0", "#f3e3b5"] },
+      swatches: ["#fffaf0", "#f6d7e0", "#f3e3b5"],
+      // Links with ?skip=bhajan use these settings instead (anything not listed stays the same).
+      whenSkipped: { venue: { name: "Terapanth Bhawan" } } },
     { id: "mehendi",  title: "Mehfil-e-Mehendi", date: "2026-11-30", time: "1 PM Onwards", venue: "", mapsUrl: "", dressCode: "[Greens & yellows]",    bg: "mehendi",
       swatches: ["#4f7a3a", "#9cc24a", "#f2c230"] },
     { id: "carnival", title: "Carnival Fiesta", date: "2026-12-01", time: "10 AM Onwards", venue: "", mapsUrl: "", dressCode: "[Fun & colourful]",     bg: "carnival",
